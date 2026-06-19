@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Theme, config } from "../config";
 import { SnapControl, Snapcast } from '../snapcontrol';
 import { SnapStream } from '../snapstream';
+import { safeImageUrl } from '../util';
 import { AppBar, Box, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography, IconButton, Snackbar, Alert, Button } from '@mui/material';
 import { PlayArrow as PlayArrowIcon, Stop as StopIcon, Menu as MenuIcon } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -173,17 +174,18 @@ export default function SnapWeb() {
       const title: string = metadata?.title || "Unknown Title";
       const artist: string = (metadata?.artist !== undefined) ? metadata?.artist.join(', ') : "Unknown Artist";
       const album: string = metadata?.album || "";
+      const artUrl = safeImageUrl(metadata?.artUrl);
       let artwork: Array<MediaImage> = [{ src: snapcast512, sizes: '512x512', type: 'image/png' }];
-      if (metadata?.artUrl !== undefined) {
+      if (artUrl !== undefined) {
         artwork = [
-          { src: metadata.artUrl, sizes: '96x96', type: 'image/png' },
-          { src: metadata.artUrl, sizes: '128x128', type: 'image/png' },
-          { src: metadata.artUrl, sizes: '192x192', type: 'image/png' },
-          { src: metadata.artUrl, sizes: '256x256', type: 'image/png' },
-          { src: metadata.artUrl, sizes: '384x384', type: 'image/png' },
-          { src: metadata.artUrl, sizes: '512x512', type: 'image/png' },
+          { src: artUrl, sizes: '96x96', type: 'image/png' },
+          { src: artUrl, sizes: '128x128', type: 'image/png' },
+          { src: artUrl, sizes: '192x192', type: 'image/png' },
+          { src: artUrl, sizes: '256x256', type: 'image/png' },
+          { src: artUrl, sizes: '384x384', type: 'image/png' },
+          { src: artUrl, sizes: '512x512', type: 'image/png' },
         ]
-      } // || 'snapcast-512.png';
+      }
       console.info('Metadata title: ' + title + ', artist: ' + artist + ', album: ' + album + ", artwork: " + artwork);
       navigator.mediaSession!.metadata = new MediaMetadata({
         title: title,

@@ -3,6 +3,7 @@ import { useState, useLayoutEffect } from 'react';
 import Client from './Client';
 import logo from '../assets/logo192.png';
 import { SnapControl, Snapcast } from '../snapcontrol';
+import { safeImageUrl } from '../util';
 import { Alert, Box, Button, Card, CardMedia, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Grid, MenuItem, Select, Slider, Snackbar, Stack, TextField, Typography, IconButton } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { VolumeUp as VolumeUpIcon, VolumeOff as VolumeOffIcon, PlayArrow as PlayArrowIcon, Pause as PauseIcon, SkipPrevious as SkipPreviousIcon, SkipNext as SkipNextIcon, Settings as SettingsIcon } from '@mui/icons-material';
@@ -231,7 +232,7 @@ export default function Group(props: GroupProps) {
     return (<div>{snackbar()}</div>);
 
   const stream = props.server.getStream(props.group.stream_id);
-  const artUrl = stream?.properties.metadata?.artUrl || logo;
+  const artUrl = safeImageUrl(stream?.properties.metadata?.artUrl) || logo;
   const title = stream?.properties.metadata?.title || "Unknown Title";
   const artist: string = (stream?.properties.metadata?.artist) ? stream!.properties.metadata.artist.join(', ') : "Unknown Artist";
 
@@ -301,6 +302,7 @@ export default function Group(props: GroupProps) {
                 sx={{ width: 48 }}
                 image={artUrl}
                 alt={title + " cover"}
+                referrerPolicy="no-referrer"
               />
               <Stack spacing={0} direction="column" justifyContent="center" sx={{ flexGrow: 1, overflow: 'hidden' }}>
                 <Typography noWrap variant="subtitle1" align="left">
