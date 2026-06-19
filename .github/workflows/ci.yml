@@ -39,6 +39,9 @@ jobs:
     - name: NPM Clean install
       run: npm ci
 
+    - name: Test
+      run: npm test
+
     - name: Build
       env: 
         GENERATE_SOURCEMAP: "false"
