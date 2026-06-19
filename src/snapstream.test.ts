@@ -100,6 +100,15 @@ describe('JsonMessage (UTF-8 sizing — regression for the byte-length fix)', ()
       nested: { city: 'Zürich', tags: ['naïve', 'café'] },
     })
   })
+
+  it('does not throw on a malformed payload (DoS guard)', () => {
+    // header(30) + size(4) declaring 4 bytes of non-JSON payload
+    const buf = new ArrayBuffer(34)
+    new DataView(buf).setUint32(26, 4, true)
+    new Uint8Array(buf).set([0x61, 0x62, 0x63, 0x64], 30) // "abcd"
+    expect(() => new JsonMessage(buf)).not.toThrow()
+    expect(new JsonMessage(buf).json).toEqual({})
+  })
 })
 
 describe('HelloMessage', () => {

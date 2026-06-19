@@ -179,7 +179,12 @@ class JsonMessage extends BaseMessage {
         const view = new DataView(buffer);
         const size = view.getUint32(26, true);
         const decoder = new TextDecoder();
-        this.json = JSON.parse(decoder.decode(buffer.slice(30, 30 + size)));
+        try {
+            this.json = JSON.parse(decoder.decode(buffer.slice(30, 30 + size)));
+        } catch (e) {
+            console.error('Invalid JSON message payload:', e);
+            this.json = {};
+        }
     }
 
     serialize(): ArrayBuffer {
