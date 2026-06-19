@@ -29,6 +29,12 @@ lerna-debug.log*
 .DS_Store
 CLAUDE.local.md
 .env.local
+
+# Home-lab image build — kept out of upstream (force-added on `homelab` only)
+/Dockerfile
+/.dockerignore
+/.github/workflows/docker-publish.yml
+
 .env.development.local
 .env.test.local
 .env.production.local
