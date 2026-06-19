@@ -1105,4 +1105,16 @@ class SnapStream {
     latency: number = 0;
 }
 
-export { SnapStream }
+export {
+    SnapStream,
+    Tv,
+    BaseMessage,
+    CodecMessage,
+    TimeMessage,
+    JsonMessage,
+    HelloMessage,
+    ServerSettingsMessage,
+    PcmChunkMessage,
+    SampleFormat,
+    TimeProvider,
+}
