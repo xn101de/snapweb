@@ -490,7 +490,13 @@ class SnapControl {
 
     private onMessage(msg: string) {
         let refresh: boolean = false;
-        const json_msg = JSON.parse(msg);
+        let json_msg: any;
+        try {
+            json_msg = JSON.parse(msg);
+        } catch (e) {
+            console.error('Failed to parse JSON-RPC message:', e);
+            return;
+        }
         const is_response: boolean = (json_msg.id !== undefined);
         // console.debug("Received " + (is_response ? "response" : "notification") + ", json: " + JSON.stringify(json_msg))
         if (is_response) {
