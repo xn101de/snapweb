@@ -234,7 +234,7 @@ export default function Group(props: GroupProps) {
   const stream = props.server.getStream(props.group.stream_id);
   const artUrl = safeImageUrl(stream?.properties.metadata?.artUrl) || logo;
   const title = stream?.properties.metadata?.title || "Unknown Title";
-  const artist: string = (stream?.properties.metadata?.artist) ? stream!.properties.metadata.artist.join(', ') : "Unknown Artist";
+  const artist: string = (stream?.properties.metadata?.artist) ? stream!.properties.metadata.artist.join(', ') : "";
 
   console.debug("Art URL: " + artUrl);
 

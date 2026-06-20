@@ -172,7 +172,7 @@ export default function SnapWeb() {
       const properties = snapControlRef.current.getStream(streamId).properties;
       const metadata = properties.metadata;
       const title: string = metadata?.title || "Unknown Title";
-      const artist: string = (metadata?.artist !== undefined) ? metadata?.artist.join(', ') : "Unknown Artist";
+      const artist: string = (metadata?.artist !== undefined) ? metadata?.artist.join(', ') : "";
       const album: string = metadata?.album || "";
       const artUrl = safeImageUrl(metadata?.artUrl);
       let artwork: Array<MediaImage> = [{ src: snapcast512, sizes: '512x512', type: 'image/png' }];
